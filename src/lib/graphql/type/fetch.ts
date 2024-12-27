@@ -1,24 +1,6 @@
 import { Attack, Evolution, PokemonBase } from "./common";
 
 
-export interface FetchPokemonsParams {
-    first: number;
-}
-
-export interface FetchSinglePokemonParams {
-    id?: string;
-    name?: string;
-}
-
-export interface QueryEvoParams {
-    id?: string;
-    name ?: string;
-}
-
-export interface QueryAtkParams {
-    id?: string;
-    name ?: string;
-}
 
 
 export interface FetchPokemonsResponse {
