@@ -29,8 +29,6 @@ const HomePage = async ({ searchParams }: PageProps) => {
     pokemon = pokemonData?.pokemon
   } 
 
-  console.log(pokemon)
-
   return (
     <>
       <Navbar />

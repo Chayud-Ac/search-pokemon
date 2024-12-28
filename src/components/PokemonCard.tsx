@@ -3,8 +3,8 @@ import React from "react";
 import EvolutionButton from "./EvolutionButton";
 
 export type PokemonCardProps = {
-  id: string;
-  number: string;
+  id?: string;
+  number?: string;
   name: string;
   weight: {
     minimum: string;
@@ -28,7 +28,6 @@ export type PokemonCardProps = {
 };
 
 const PokemonCard = ({
-  number,
   name,
   weight,
   height,
@@ -43,7 +42,6 @@ const PokemonCard = ({
   evolutions
 }: PokemonCardProps) => {
 
-  console.log(evolutions?.length, "THis is evolutions")
 
   return (
     <div className="relative flex flex-col w-full min-h-screen items-center gap-10 justify-center overflow-hidden rounded-lg shadow-lg bg-white p-4 m-2 md:flex-row md:gap-20">
