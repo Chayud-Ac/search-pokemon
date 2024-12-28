@@ -28,7 +28,6 @@ export type PokemonCardProps = {
 };
 
 const PokemonCard = ({
-  id,
   number,
   name,
   weight,
@@ -44,19 +43,18 @@ const PokemonCard = ({
   evolutions
 }: PokemonCardProps) => {
 
-  evolutions?.length
-
   console.log(evolutions?.length, "THis is evolutions")
 
   return (
     <div className="relative flex flex-col w-full min-h-screen items-center gap-10 justify-center overflow-hidden rounded-lg shadow-lg bg-white p-4 m-2 md:flex-row md:gap-20">
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 max-sm:mt-20">
         <Image
           src={image}
           alt={name}
           className="object-contain"
-          width={300}
-          height={300}
+          width={400}
+          height={400}
+          priority
         />
         <div className="text-center">
           <h2 className="text-3xl font-bold">
@@ -132,7 +130,7 @@ const PokemonCard = ({
 
       {evolutions !== null ?
         <div className="absolute top-5 right-5">
-          <EvolutionButton name={evolutions[0].name}/>
+          <EvolutionButton name={evolutions[0].name} />
         </div>
         :
         <p className="absolute top-5 right-5 px-5 py-2 bg-red-500 rounded-lg font-semibold">Final Evolution</p>
