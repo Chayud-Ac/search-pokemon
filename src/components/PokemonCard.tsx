@@ -58,7 +58,7 @@ const PokemonCard = ({
         />
         <div className="text-center">
           <h2 className="text-3xl font-bold">
-            {name} #{number}
+            {name}
           </h2>
           <p className="text-xl text-gray-500 italic">{classification}</p>
         </div>

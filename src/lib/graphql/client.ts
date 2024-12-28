@@ -1,7 +1,11 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import fetch from 'cross-fetch';
 
 const client = new ApolloClient({
-  uri: 'https://graphql-pokemon2.vercel.app/', 
+  link: new HttpLink({
+    uri: 'https://graphql-pokemon2.vercel.app/',
+    fetch, // Use cross-fetch
+  }),
   cache: new InMemoryCache(),
 });
 
