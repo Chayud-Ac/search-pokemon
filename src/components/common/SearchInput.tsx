@@ -1,15 +1,21 @@
 "use client"
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai' 
-import { useRouter } from 'next/navigation'
-import { useState , useEffect } from 'react'
-
-
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const SearchInput = () => {
   const router = useRouter()
-  const [searchValue, setSearchValue] = useState('')
+  const searchParams = useSearchParams();
 
+  const name = searchParams.get("name")
+  const [searchValue, setSearchValue] = useState(name || '')
+
+  // Sync searchValue with URL changes
+  useEffect(() => {
+    setSearchValue(name || '')
+  }, [name])
+
+  // Handle input changes and update the URL
   useEffect(() => {
     const handler = setTimeout(() => {
       if (searchValue.trim() !== '') {
@@ -27,6 +33,7 @@ const SearchInput = () => {
       <input
         className="pl-10 pr-4 py-2 rounded-full border-none border-gray-300 focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition duration-150 ease-in-out w-full shadow-md"
         placeholder="Search..."
+        value={searchValue} // Bind the input value to the state
         onChange={(e) => setSearchValue(e.target.value)}
       />
     </div>

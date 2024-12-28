@@ -2,12 +2,10 @@ import Navbar from '@/components/Navbar'
 import NoResult from '@/components/common/NoResult'
 import PokemonCard from '@/components/PokemonCard'
 import client from '@/lib/graphql/client'
-import { GET_POKEMON, GET_POKEMONS } from '@/lib/graphql/queries'
-import { FetchPokemonsResponse, FetchSinglePokemonResponse } from '@/lib/graphql/type/fetch'
+import { GET_POKEMON } from '@/lib/graphql/queries'
 import React from 'react'
+import { FetchPokemonResponse } from '@/lib/graphql/type'
 
-// no cache
-export const dynamic = 'force-dynamic'
 
 interface PageProps {
   searchParams: {
@@ -20,39 +18,29 @@ interface PageProps {
 const HomePage = async ({ searchParams }: PageProps) => {
   const { name } = searchParams
 
-  let singlePokemon = null
-  let pokemonList = null
+  let pokemon = null
 
   if (name && name.trim()) {
     // name is provided and not empty
-    const { data: pokemonData }: FetchSinglePokemonResponse = await client.query({
+    const { data: pokemonData }: FetchPokemonResponse = await client.query({
       query: GET_POKEMON,
       variables: { name },
-      fetchPolicy: 'no-cache',
     })
-    singlePokemon = pokemonData?.pokemon
-  } else {
-    // no name provided or empty
-    const { data: pokemonsData }: FetchPokemonsResponse = await client.query({
-      query: GET_POKEMONS,
-      variables: { first: 20 },
-      fetchPolicy: 'no-cache',
-    })
-    pokemonList = pokemonsData?.pokemons
-  }
+    pokemon = pokemonData?.pokemon
+  } 
+
+  console.log(pokemon)
 
   return (
     <>
       <Navbar />
-      <div className="flex flex-col w-full p-10">
-        <div className={`flex flex-wrap mt-10 justify-center gap-5 `}>
-          {pokemonList
-            // pokemonList true then map it
-            ? pokemonList.map((pokemon, index) => <PokemonCard key={pokemon.id}  {...pokemon} />)
-            // pokemonList false then check singlePokemon , if singlePokemon is true show single card , if not show NoResult 
-            : singlePokemon ? <PokemonCard {...singlePokemon} /> : <NoResult />
-          }
-        </div>
+      <div className="flex flex-col w-full min-h-screen items-center justify-center p-10">
+        {name === undefined  
+          // if name is undefined mean user is not query yet then tell user to Search for pokemon
+          ? <p>Search for pokemon</p> 
+          // else check if pokemon is true if true then show PokemonCard if not show NoResult
+          : pokemon  ?  <PokemonCard {...pokemon}/> : <NoResult/>
+        }
       </div>
     </>
   )
