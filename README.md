@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Search Pokemon Application
 
-## Getting Started
+This project is a full-stack TypeScript application built using **Next.js 14** with the **App Router**, communicating with a Pokémon GraphQL API as the data source. The application allows users to search for Pokémon by name and view detailed information, including attacks and evolutions. The application also features a test suite using Jest.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Deployment
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Vercel Deployment:** [Insert Vercel Link]
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+### Core Features
 
-To learn more about Next.js, take a look at the following resources:
+1. **Search Input**
+   - A search input component allows users to search for Pokémon by name.
+   - Utilizes URL query parameters (`?name=<pokemon_name>`) to track the search state.
+   - Home page is SSR page which will render on the server. This page extract the name queryParams from the url and pass as a input parameter for client query graphQL
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Result Display**
+   - Displays all information about the searched Pokémon in PokemonCard component
+     - Name, type(s), height, weight, classification, max HP, max CP, flee rate.
+     - Attacks (fast and special).
+     - Evolutions. (if the pokemon has the next evolution stage)
+   - Shows a `Not Found` UI if the pokemon is not found 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Evolution Navigation**
+   - Clicking on an evolution's name updates the search query parameter in the URL and fetches the data for the evolved Pokémon.
 
-## Deploy on Vercel
+4. **GraphQL Integration**
+   - Queries are optimized and utilize Apollo Client for fetching and caching data from the Pokémon GraphQL API.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+- **Frontend Framework:** Next.js 14 (with App Router)
+- **API Communication:** Apollo Client (GraphQL)
+- **Styling:** tailwind css
+- **Testing:** Jest with React Testing Library
+- **Deployment:** Vercel
+
+---
+
+## Installation and Running the Application
+
+1. Clone the repository:
+   ```bash
+   git clone [Insert Repo Link]
+   cd search-pokemon
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open the application in your browser:
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## Testing
+
+### Test Suite
+
+The application includes a Jest test suite to validate the functionality and correctness of Pokémon types. The tests focus on ensuring that:
+
+1. **Mock Data Tests:**
+   - Bulbasaur is of type `Grass`.
+   - Charmander is of type `Fire`.
+   - Squirtle is of type `Water`.
+
+2. **GraphQL Integration Tests:**
+   - Confirms that the GraphQL API returns the correct data for the Pokémon.
+   - Validates the proper rendering of the `PokemonCard` component.
+
+### Running Tests
+
+1. Run the Jest test suite:
+   ```bash
+   npm test
+   ```
+
+2. Output:
+   - The test suite verifies that:
+     - The API data is fetched correctly.
+     - Each Pokémon type matches the expected type.
+     - The `PokemonCard` component renders correctly.
+
+---
+
+
+## Project Structure
+
+1. **NextJs with App router and src directory**:
+  -  (root) is the main group root route
+  -  components store all the components such as PokemonCard , Navbar , EvolutionButton , SearchInput , etc ..
+  -  No design token for tailwindcss.
+  -  lib for storing graphQL queries , type ,  client config , utils , etc
+
+---
+
+
+
