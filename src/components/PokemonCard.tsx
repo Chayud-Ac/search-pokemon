@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Link from "next/link";
+import EvolutionButton from "./EvolutionButton";
 
 export type PokemonCardProps = {
   id: string;
@@ -22,6 +22,9 @@ export type PokemonCardProps = {
   maxCP: number;
   maxHP: number;
   image: string;
+  evolutions: {
+    name: string
+  }[] | null
 };
 
 const PokemonCard = ({
@@ -38,97 +41,103 @@ const PokemonCard = ({
   maxCP,
   maxHP,
   image,
-} : PokemonCardProps) => {
+  evolutions
+}: PokemonCardProps) => {
 
-  console.log(id , name)
+  evolutions?.length
+
+  console.log(evolutions?.length, "THis is evolutions")
 
   return (
-    <Link href={`/pokedex/${id}`} className="w-full max-w-xs overflow-hidden rounded-lg shadow-lg bg-white p-4 m-2 hover:scale-[1.02] hover:shadow-md transition-all duration-300">
-
-      <div className="flex justify-center mb-4">
+    <div className="relative flex flex-col w-full min-h-screen items-center gap-10 justify-center overflow-hidden rounded-lg shadow-lg bg-white p-4 m-2 md:flex-row md:gap-20">
+      <div className="flex flex-col gap-5">
         <Image
           src={image}
           alt={name}
-          className="h-auto w-auto object-contain"
-          width={100}
-          height={100}
+          className="object-contain"
+          width={300}
+          height={300}
         />
-      </div>
-
-
-      <div className="text-center">
-        <h2 className="text-xl font-bold">
-          {name} #{number}
-        </h2>
-        <p className="text-gray-500 italic">{classification}</p>
-      </div>
-
-
-      <div className="mt-4 space-y-1 text-sm">
-        <p>
-          <span className="font-semibold">Weight:</span>{" "}
-          {weight.minimum} - {weight.maximum}
-        </p>
-        <p>
-          <span className="font-semibold">Height:</span>{" "}
-          {height.minimum} - {height.maximum}
-        </p>
-        <p>
-          <span className="font-semibold">Max CP:</span> {maxCP}
-        </p>
-        <p>
-          <span className="font-semibold">Max HP:</span> {maxHP}
-        </p>
-        <p>
-          <span className="font-semibold">Flee Rate:</span> {fleeRate}
-        </p>
-      </div>
-
-
-      <div className="mt-4">
-        <h3 className="font-semibold mb-1">Types</h3>
-        <div className="flex flex-wrap gap-2">
-          {types.map((type) => (
-            <span
-              key={type}
-              className="px-2 py-1 text-xs bg-green-200 text-green-800 rounded-full"
-            >
-              {type}
-            </span>
-          ))}
+        <div className="text-center">
+          <h2 className="text-3xl font-bold">
+            {name} #{number}
+          </h2>
+          <p className="text-xl text-gray-500 italic">{classification}</p>
         </div>
       </div>
 
+      <div>
+        <div className="mt-4 space-y-2 text-lg">
+          <p>
+            <span className="font-semibold">Weight:</span>{" "}
+            {weight.minimum} - {weight.maximum}
+          </p>
+          <p>
+            <span className="font-semibold">Height:</span>{" "}
+            {height.minimum} - {height.maximum}
+          </p>
+          <p>
+            <span className="font-semibold">Max CP:</span> {maxCP}
+          </p>
+          <p>
+            <span className="font-semibold">Max HP:</span> {maxHP}
+          </p>
+          <p>
+            <span className="font-semibold">Flee Rate:</span> {fleeRate}
+          </p>
+        </div>
 
-      <div className="mt-4">
-        <h3 className="font-semibold mb-1">Resistant</h3>
-        <div className="flex flex-wrap gap-2">
-          {resistant.map((res) => (
-            <span
-              key={res}
-              className="px-2 py-1 text-xs bg-blue-200 text-blue-800 rounded-full"
-            >
-              {res}
-            </span>
-          ))}
+        <div className="mt-6">
+          <h3 className="font-semibold text-xl mb-2">Types</h3>
+          <div className="flex flex-wrap gap-3">
+            {types.map((type) => (
+              <span
+                key={type}
+                className="px-3 py-2 text-sm bg-green-200 text-green-800 rounded-full"
+              >
+                {type}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="font-semibold text-xl mb-2">Resistant</h3>
+          <div className="flex flex-wrap gap-3">
+            {resistant.map((res) => (
+              <span
+                key={res}
+                className="px-3 py-2 text-sm bg-blue-200 text-blue-800 rounded-full"
+              >
+                {res}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="font-semibold text-xl mb-2">Weaknesses</h3>
+          <div className="flex flex-wrap gap-3">
+            {weaknesses.map((weak) => (
+              <span
+                key={weak}
+                className="px-3 py-2 text-sm bg-red-200 text-red-800 rounded-full"
+              >
+                {weak}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-
-      <div className="mt-4">
-        <h3 className="font-semibold mb-1">Weaknesses</h3>
-        <div className="flex flex-wrap gap-2">
-          {weaknesses.map((weak) => (
-            <span
-              key={weak}
-              className="px-2 py-1 text-xs bg-red-200 text-red-800 rounded-full"
-            >
-              {weak}
-            </span>
-          ))}
+      {evolutions !== null ?
+        <div className="absolute top-5 right-5">
+          <EvolutionButton name={evolutions[0].name}/>
         </div>
-      </div>
-    </Link>
+        :
+        <p className="absolute top-5 right-5 px-5 py-2 bg-red-500 rounded-lg font-semibold">Final Evolution</p>
+      }
+    </div>
   );
 };
 
