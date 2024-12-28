@@ -32,7 +32,7 @@ const SearchInput = () => {
       <AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
       <input
         className="pl-10 pr-4 py-2 rounded-full border-none border-gray-300 focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition duration-150 ease-in-out w-full shadow-md"
-        placeholder="Search..."
+        placeholder="Type the name of Pokemon..."
         value={searchValue} // Bind the input value to the state
         onChange={(e) => setSearchValue(e.target.value)}
       />

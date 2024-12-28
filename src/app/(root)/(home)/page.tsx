@@ -37,7 +37,7 @@ const HomePage = async ({ searchParams }: PageProps) => {
       <div className="flex flex-col w-full min-h-screen items-center justify-center p-10">
         {name === undefined  
           // if name is undefined mean user is not query yet then tell user to Search for pokemon
-          ? <p>Search for pokemon</p> 
+          ? <p className="text-7xl text-blue-600 text-center mt-8 p-6 bg-blue-300 rounded-lg shadow-md">Type the name of Pokemon</p> 
           // else check if pokemon is true if true then show PokemonCard if not show NoResult
           : pokemon  ?  <PokemonCard {...pokemon}/> : <NoResult/>
         }
